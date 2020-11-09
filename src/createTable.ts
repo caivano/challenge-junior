@@ -3,8 +3,8 @@ import { connection } from './index'
 const createProjectTable = async (): Promise<void> => {
     try {
         await connection.schema.createTable('projects', (table: any) => {
-            table.increments('id').primary()
-            table.string('name').unique()
+            table.string('id').primary()
+            table.string('name').unique().notNullable()
             table.boolean('deleted').defaultTo('false')
         })
     } catch (error) {
@@ -15,7 +15,7 @@ const createProjectTable = async (): Promise<void> => {
 const createLotTable = async (): Promise<void> => {
     try {
         await connection.schema.createTable('lots', (table: any) => {
-            table.increments('id').primary()
+            table.string('id').primary()
             table.float('price').notNullable()
             table.integer('qty').notNullable()
             table.datetime('purchase_date').notNullable()
@@ -27,13 +27,11 @@ const createLotTable = async (): Promise<void> => {
     }
 }
 
-const createTable = async (): Promise<void> => {
+export const createTable = async (): Promise<void> => {
     try {
         await createProjectTable()
-        await createLotTable()
+        createLotTable()
     } catch (error) {
         throw new Error(error.sqlMessage)
     }
 }
-
-createTable()
