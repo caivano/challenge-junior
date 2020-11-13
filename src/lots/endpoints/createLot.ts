@@ -1,15 +1,15 @@
 import { Request, Response } from 'express'
 import generateId from '../../services/idGenerator'
-import { Lot } from '../../types'
 import { insertLot } from '../data/insertLot'
+import { Lot } from '../../types'
 
 export const createLot = async (
     req:Request, 
     res:Response
     ) => {
     
-    let message:string = 'Lot created.'
-    const { price, qty } = req.body
+        const { price, qty } = req.body
+        let message:string = 'Lot created.'
 
     try {
         if(!price || !qty){
@@ -28,7 +28,7 @@ export const createLot = async (
     
             await insertLot(lotInfo)
 
-            res.send({
+            res.status(201).send({
                 message,
                 lotInfo
             })

@@ -1,9 +1,9 @@
 import { connection } from '../..'
 import { Lot } from '../../types'
 
-export const selectLotById = async (
-    id:string
-    ): Promise<Lot[]> => {
+export const selectLotByProjectId = async (
+    id:number,
+    ):Promise<Lot[]> => {
     
     try {
         return await connection('lots')
@@ -12,6 +12,6 @@ export const selectLotById = async (
             deleted: false
         })
     } catch (error) {
-        throw new Error(error.message || error.sqlMessage);
+        throw new Error(error.message || error.sqlMessage)
     }
 }

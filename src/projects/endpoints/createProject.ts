@@ -6,21 +6,21 @@ export const createProject = async (
     res: Response
     ) => {
         
-    const name = req.body.name
-    let message = 'Projeto criado com sucesso!'
+    const name:string = req.body.name
+    let message:string = 'Project created.'
 
     try {
         if(!name){
             res.statusCode = 406
-            message = 'Você deve fornecer o nome do projeto'
+            message = 'Missing project name.'
             throw new Error(message);
+        } else {
+            await insertProject(name)
+    
+            res.status(201).send({
+                message
+            })
         }
-
-        await insertProject(name)
-
-        res.send({
-            message
-        })
     } catch (error) {
         res.status(400).send({
             message: error.message || error.sqlMessage

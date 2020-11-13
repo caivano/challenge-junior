@@ -1,6 +1,5 @@
 import { Request, Response } from 'express'
 import { Project } from '../../types'
-import { selectAllProjects } from '../data/selectAllProjects'
 import { selectProjectById } from '../data/selectProjectById'
 
 export const getProjectById = async (
@@ -8,22 +7,23 @@ export const getProjectById = async (
     res:Response
     ) => {
     
-    const id: number = Number(req.params.id)
+    const id:number = Number(req.params.id)
 
     try {
-        const result: Project = await selectProjectById(id)
+        const result:Project[] = await selectProjectById(id)
 
-        if(!result){
+        if(!result.length){
             res.send({
-                    message: 'Não há nenhum projeto registrado com esse id.'
+                    message: 'No project found for this ID.'
                 })
+        } else {
+            res.send({
+                projeto: result
+            })
         }
-
-        res.send({
-            projeto: result
-        })
-
     } catch (error) {
-        res.status(400).send(error.message || error.sqlMessage)
+        res.status(400).send({
+            message: error.message || error.sqlMessage
+        })
     }
 }

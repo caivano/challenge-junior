@@ -10,6 +10,8 @@ import { getAllProjects } from './projects/endpoints/getAllProjects'
 import { getProjectById } from './projects/endpoints/getProjectById'
 import { createLot } from './lots/endpoints/createLot'
 import { deleteLot } from './lots/endpoints/deleteLot'
+import { getLotByProjectId } from './lots/endpoints/getLotByProjectId'
+import { getLotById } from './lots/endpoints/getLotById'
 
 dotenv.config()
 
@@ -36,9 +38,9 @@ app.delete('/projects/:id', deleteProject)
 app.get('/projects/:id', getProjectById)
 
 app.post('/lots', createLot)
-app.get('/lots/:project-id')
+app.get('/lots/:project-id', getLotByProjectId)
 app.delete('/lots/:id', deleteLot)
-app.get('/lots/:id')
+app.get('/lots/:id', getLotById)
 
 const server = app.listen(process.env.PORT || 3003, () => {
     if (server) {

@@ -8,19 +8,20 @@ export const getAllProjects = async (
     ) => {
     
     try {
-        const result: Project[] = await selectAllProjects()
+        const result:Project[] = await selectAllProjects()
 
         if(!result.length){
             res.send({
-                    message: 'Não há projetos cadastrados.'
+                    message: 'Projects table is empty.'
                 })
+        } else {
+            res.send({
+                projetos: result
+            })
         }
-
-        res.send({
-            projetos: result
-        })
-
     } catch (error) {
-        res.status(400).send(error.message || error.sqlMessage)
+        res.status(400).send({
+            message: error.message || error.sqlMessage
+        })
     }
 }

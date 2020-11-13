@@ -3,7 +3,7 @@ import { Lot } from '../../types'
 
 export const selectLotById = async (
     id:string
-    ): Promise<Lot[]> => {
+    ):Promise<Lot[]> => {
     
     try {
         return await connection('lots')
@@ -12,6 +12,6 @@ export const selectLotById = async (
             deleted: false
         })
     } catch (error) {
-        throw new Error(error.message || error.sqlMessage);
+        throw new Error(error.message || error.sqlMessage)
     }
 }

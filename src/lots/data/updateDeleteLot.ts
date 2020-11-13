@@ -10,6 +10,6 @@ export const updateDeleteLot = async (
             deleted: true
         })
     } catch (error) {
-        throw new Error(error.message || error.sqlMessage);
+        throw new Error(error.message || error.sqlMessage)
     }
 }

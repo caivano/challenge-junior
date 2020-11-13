@@ -5,7 +5,6 @@ export const selectAllProjects = async (): Promise<any> => {
         return await connection('projects')
         .select('id', 'name')
         .where('deleted', false)
-
     } catch (error) {
         throw new Error(error.message || error.sqlMessage);
     }

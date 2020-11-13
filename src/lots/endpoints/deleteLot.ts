@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import { Lot } from '../../types'
-import { selectLotById } from '../data/selectLotByProjectId'
+import { selectLotById } from '../data/selectLotById'
 import { updateDeleteLot } from '../data/updateDeleteLot'
 
 export const deleteLot = async (
@@ -15,22 +15,21 @@ export const deleteLot = async (
         if(!id){
             message = 'You must provide an ID for search.'
             res.statusCode = 400
-            throw new Error(message);
+            throw new Error(message)
         }    
 
         const isExistingLot:Lot[] = await selectLotById(id)
-
-        if(!isExistingLot){
+        
+        if(!isExistingLot.length){
             res.statusCode = 404
             message = 'Lot not found.'
-            throw new Error(message);
+            throw new Error(message)
         } else {
             await updateDeleteLot(id)
             res.send({
                 message
             })
         }
-
     } catch (error) {
         res.status(400).send({
             message: error.message || error.sqlMessage

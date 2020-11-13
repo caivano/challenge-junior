@@ -2,7 +2,7 @@ import { connection } from '../..'
 
 export const updateDeleteProject = async (
     id:number
-    ): Promise<void> => {
+    ):Promise<void> => {
     
     try {
         await connection('projects')
