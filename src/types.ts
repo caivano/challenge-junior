@@ -4,8 +4,8 @@ export type Project = {
 }
 
 export type Lot = {
-    id: number,
+    id: string,
     price: number,
     qty: number,
-    purchase_date: string
+    purchase_date: Date
 }

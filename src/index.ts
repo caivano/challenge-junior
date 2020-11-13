@@ -3,7 +3,13 @@ import cors from 'cors'
 import Knex from 'knex'
 import dotenv from 'dotenv'
 import { AddressInfo } from 'net'
-import { createTable } from './createTable'
+import { createProject } from './projects/endpoints/createProject'
+import { editProject } from './projects/endpoints/editProject'
+import { deleteProject } from './projects/endpoints/deleteProject'
+import { getAllProjects } from './projects/endpoints/getAllProjects'
+import { getProjectById } from './projects/endpoints/getProjectById'
+import { createLot } from './lots/endpoints/createLot'
+import { deleteLot } from './lots/endpoints/deleteLot'
 
 dotenv.config()
 
@@ -23,11 +29,21 @@ export const connection = Knex({
         }
 })
 
+app.get('/projects', getAllProjects)
+app.post('/projects', createProject)
+app.put('/projects/:name', editProject)
+app.delete('/projects/:id', deleteProject)
+app.get('/projects/:id', getProjectById)
+
+app.post('/lots', createLot)
+app.get('/lots/:project-id')
+app.delete('/lots/:id', deleteLot)
+app.get('/lots/:id')
+
 const server = app.listen(process.env.PORT || 3003, () => {
     if (server) {
        const address = server.address() as AddressInfo;
        console.log(`Server is running in http://localhost:${address.port}`);
-       createTable()
     } else {
        console.error(`Failure upon starting server.`);
     }
